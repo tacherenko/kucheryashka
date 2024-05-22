@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
     const data = [
         "техна", "шатать", "нестабильная ветка", "раскуривать",
         "чик-чик", "багофиксы", "проблемы с гитом/SVN", "мне написали с кореха",
@@ -25,8 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const cells = document.querySelectorAll('td');
 
     cells.forEach(cell => {
+        const cellId = cell.textContent; 
+        const isHighlighted = localStorage.getItem(cellId); 
+
+        if (isHighlighted === 'true') {
+            cell.classList.add('highlight'); 
+        }
+    });
+
+    cells.forEach(cell => {
         cell.addEventListener('click', function() {
             this.classList.toggle('highlight');
+
+            const cellId = this.textContent;
+            const isHighlighted = this.classList.contains('highlight');
+            localStorage.setItem(cellId, isHighlighted.toString());
+
             checkBingo();
         });
     });
@@ -72,11 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
+    document.getElementById('resetBtn').addEventListener('click', resetGame);
     function resetGame() {
         const cells = document.querySelectorAll('td');
         cells.forEach(cell => {
             cell.classList.remove('highlight');
+        });
+
+        cells.forEach(cell => {
+            localStorage.removeItem(cell.textContent);
         });
 
         shuffleArray(data);
@@ -98,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-const modal = document.getElementById('modal');
-const closeBtn = document.getElementsByClassName('close')[0];
+    const modal = document.getElementById('modal');
+    const closeBtn = document.getElementsByClassName('close')[0];
 
     function openModal() {
         modal.style.display = 'flex';
@@ -119,19 +136,16 @@ const closeBtn = document.getElementsByClassName('close')[0];
         }
     }
 
-function saveWinData(cells) {
-    let winsData = JSON.parse(localStorage.getItem('winsData')) || [];
+    function saveWinData(cells) {
+        let winsData = JSON.parse(localStorage.getItem('winsData')) || [];
 
-    const win = [];
-    cells.forEach(cell => {
-        win.push(cell.textContent);
-    });
+        const win = [];
+        cells.forEach(cell => {
+            win.push(cell.textContent);
+        });
 
-    winsData.push(win);
+        winsData.push(win);
 
-    localStorage.setItem('winsData', JSON.stringify(winsData));
-}
-
-
+        localStorage.setItem('winsData', JSON.stringify(winsData));
+    }
 });
-
