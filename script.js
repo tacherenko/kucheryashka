@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = [
         "Техна", "Шатать", "Нестабильная ветка", "Раскуривать",
         "Чик-чик", "Багофиксы", "Проблемы с гитом/SVN", "Мне написали с кореха",
-        "Драфт", "12", "17", "22",
-        "8", "13", "18", "23"
+        "Драфт", "Сделать по красоте", "Завести бажок", "я сам напишу ему/ей",
+        "упарываться/упороться", "подлизывание Софье", "18", "23"
     ];
 
     shuffleArray(data);
@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     
             if (allGreen) {
+                saveWinData(cells);
                 openModal();
                 resetGame();
                 return;
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
     
             if (allGreen) {
+                saveWinData(cells);
                 openModal();
                 resetGame();
                 return;
@@ -116,6 +118,20 @@ const closeBtn = document.getElementsByClassName('close')[0];
             closeModal();
         }
     }
+
+function saveWinData(cells) {
+    let winsData = JSON.parse(localStorage.getItem('winsData')) || [];
+
+    const win = [];
+    cells.forEach(cell => {
+        win.push(cell.textContent);
+    });
+
+    winsData.push(win);
+
+    localStorage.setItem('winsData', JSON.stringify(winsData));
+}
+
 
 });
 
