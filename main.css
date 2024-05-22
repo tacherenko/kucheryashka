@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 5px;
     font-family: Arial, sans-serif;
-    cursor: url('./cur.png'), auto;
+    cursor: url('./cur1.png'), default;
 }
 table {
     border-collapse: collapse;
