@@ -34,27 +34,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkBingo() {
         const rows = document.querySelectorAll('table tr');
         const columnsCount = rows[0].querySelectorAll('td').length;
-
+    
         for (let i = 0; i < rows.length; i++) {
             const cells = rows[i].querySelectorAll('td');
             let allGreen = true;
-
+    
             cells.forEach(cell => {
                 if (!cell.classList.contains('highlight')) {
                     allGreen = false;
                 }
             });
-
+    
             if (allGreen) {
                 openModal();
                 resetGame();
                 return;
             }
         }
-
+    
         for (let col = 0; col < columnsCount; col++) {
             let allGreen = true;
-
+    
             for (let row = 0; row < rows.length; row++) {
                 const cell = rows[row].querySelectorAll('td')[col];
                 if (!cell.classList.contains('highlight')) {
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 }
             }
-
+    
             if (allGreen) {
                 openModal();
                 resetGame();
@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
-});
 
 const modal = document.getElementById('modal');
 const closeBtn = document.getElementsByClassName('close')[0];
@@ -117,4 +116,6 @@ const closeBtn = document.getElementsByClassName('close')[0];
             closeModal();
         }
     }
+
+});
 
